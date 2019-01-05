@@ -3,7 +3,9 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/map.css" />
   <title>Geo Location</title>
 </head>
 
@@ -14,13 +16,20 @@
   <input type="text" id="msg" placeholder="Message">
   <button id="send">Send</button>
   <hr>
+  <div id="geo">
+    <span id="latitude"></span> , <span id="longitude"></span>
+  </div>
   <div id="out"></div>
+  <div id="map"></div>
   <div id="history"></div>
-  <script type="text/javascript" src="js/crypto-js.js"></script>
-  <script type="text/javascript" src="js/skyway-latest.js"></script>
-  <script type="text/javascript" src="js/geo.js"></script>
   <script type="text/javascript" src="js/crypt.js"></script>
+  <script type="text/javascript" src="js/crypto-js.js"></script>
+  <script type="text/javascript" src="js/geo.js"></script>
+  <script type="text/javascript" src="js/leaflet.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="js/rtc.js"></script>
+  <script type="text/javascript" src="js/skyway-latest.js"></script>
 </body>
 
 </html>

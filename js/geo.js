@@ -1,35 +1,26 @@
-function getTileImage(lat, lon, zoom) {
-    const xTile = parseInt(Math.floor((lon + 180) / 360 * (1 << zoom)));
-    const yTile = parseInt(Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) /
-        Math.PI) / 2 * (1 << zoom)));
-    return "https://cyberjapandata.gsi.go.jp/xyz/pale/" + zoom + "/" + xTile + "/" + yTile + ".png";
-}
-
 function geoFindMe() {
-    var output = document.getElementById("out");
 
     if (!navigator.geolocation) {
-        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+        document.getElementById("map").innerHTML = "<p>Geolocation is not supported by your browser</p>";
         return;
     }
 
     function geo_success(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
+        document.getElementById("latitude").innerText = latitude;
+        document.getElementById("longitude").innerText = longitude;
+        if (map && (false == isNaN(latitude)) && (false == isNaN(longitude))) {
+            mpoint = [latitude, longitude];
+            map.setView(mpoint, 18);
 
-        output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-        var img = new Image();
-        img.src = getTileImage(latitude, longitude, 16);
-
-        output.appendChild(img);
+            sendLocation();
+        }
     }
 
     function geo_error(error) {
         output.innerHTML = 'ERROR(' + error.code + '): ' + error.message;
     }
-
-    output.innerHTML = "<p>Locating…</p>";
 
     // とりあえず低精度で速やかに測位
     navigator.geolocation.getCurrentPosition(geo_success, geo_error);
@@ -40,6 +31,6 @@ function geoFindMe() {
         maximumAge: 30000,
         timeout: 27000
     };
-    var watchID = navigator.geolocation.watchPosition(geo_success, geo_error);
+    var watchID = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
     // navigator.geolocation.clearWatch(watchID);
 }
