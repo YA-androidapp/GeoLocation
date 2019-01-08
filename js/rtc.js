@@ -8,7 +8,7 @@ function rtc_init() {
     });
 
     peer.on('open', id => {
-        appendHistory('Successfully connected to signaling server.');
+        appendHistory('Successfully connected to signaling server.', '');
     });
 
     var enter = document.getElementById('enter');
@@ -21,7 +21,7 @@ function rtc_init() {
         });
 
         var entered = '<i class="name">' + name.value + '</i> entered ' + roomName.value + '.';
-        appendHistory(entered);
+        appendHistory(entered, '');
         room.send(en(entered));
         isEntered = true;
 
@@ -32,13 +32,13 @@ function rtc_init() {
             var sent = '<i class="name">' + name.value + '</i> > <span class="message">' + msg.value +
                 '</span>';
             room.send(en(sent));
-            appendHistory(sent);
+            appendHistory(sent, '');
             send.disabled = false;
         });
 
         room.on('data', function (data) {
             var received = de(data.data);
-            appendHistory(received);
+            appendHistory(received, '');
         });
 
         enter.disabled = false;
@@ -49,17 +49,19 @@ function sendLocation() {
     var la = document.getElementById("latitude").innerText;
     var lo = document.getElementById("longitude").innerText;
     if ((false == isNaN(la)) && (false == isNaN(lo))) {
-        var sent = '<i class="name">' + name.value + '</i> @ ' +
-            '<span class="lat">' + la + '</span>' +
-            '<span class="long">' + lo + '</span>';
+        var sent = '<i class="name">' + name.value + '</i> @ <span class="lat">' + la + '</span> , <span class="long">' + lo + '</span>';
         if (null != room) {
             room.send(en(sent));
-            appendHistory(sent);
+            appendHistory(sent, 'location');
         }
     }
 }
 
-function appendHistory(msg) {
+function appendHistory(msg, mode) {
     var history = document.getElementById('history');
-    history.insertAdjacentHTML('afterbegin', '<p>' + msg + '</p>');
+    if ('' == mode) {
+        history.insertAdjacentHTML('afterbegin', '<p>' + msg + '</p>');
+    } else {
+        history.insertAdjacentHTML('afterbegin', '<p class="' + mode + '">' + msg + '</p>');
+    }
 }
