@@ -10,9 +10,11 @@ function geoFindMe() {
         var longitude = position.coords.longitude;
         document.getElementById("latitude").innerText = latitude;
         document.getElementById("longitude").innerText = longitude;
-        if (map && (false == isNaN(latitude)) && (false == isNaN(longitude))) {
-            mpoint = [latitude, longitude];
-            map.setView(mpoint, 18);
+        if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
+            if (map) {
+                mpoint = [latitude, longitude];
+                map.setView(mpoint, 18);
+            }
 
             sendLocation();
         }

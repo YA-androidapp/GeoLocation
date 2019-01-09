@@ -44,7 +44,7 @@ function rtc_init() {
         room.on('data', function (data) {
             var received = de(data.data);
 
-            console.log(received);
+            // console.log(received);
             if (received.indexOf('<p class="' + MODE_LOCATION + '">') > -1) {
                 // ユーザー・緯度・経度を抽出
                 // 想定データ
@@ -116,7 +116,7 @@ function sendLocation() {
         var sent = '<p class="' + MODE_LOCATION + '"><i class="name">' + name + '</i> @ <span class="lat">' + la + '</span> , <span class="long">' + lo + '</span></p>';
         if (null != room) {
             room.send(en(sent));
-            appendHistory(sent);
+            // appendHistory(sent);
         }
     }
 }

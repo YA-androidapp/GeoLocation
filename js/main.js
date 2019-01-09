@@ -10,7 +10,18 @@ function form_init() {
     var roomName = document.getElementById('roomName');
     roomName.value = '1'; // random;
 
-    var random = Math.floor(Math.random() * 100);
     var name = document.getElementById('name');
-    name.value = random;
+    name.addEventListener('change', function () {
+        if (('localStorage' in window) && (window.localStorage !== null)) {
+            localStorage.setItem('name', document.getElementById('name').value);
+            console.log('save name: ' + document.getElementById('name').value);
+        }
+    }, false);
+    loadedName = localStorage.getItem('name');
+    if (loadedName && loadedName.length > 0) {
+        name.value = loadedName;
+    } else {
+        var random = Math.floor(Math.random() * 100); // 0～99
+        name.value = random;
+    }
 }
