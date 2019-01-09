@@ -8,7 +8,7 @@ window.onload = function () {
 function form_init() {
     var random = 1000 + Math.floor(Math.random() * 1000);
     var roomName = document.getElementById('roomName');
-    roomName.value = random;
+    roomName.value = '1'; // random;
 
     var random = Math.floor(Math.random() * 100);
     var name = document.getElementById('name');
