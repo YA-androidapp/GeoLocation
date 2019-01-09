@@ -43,57 +43,64 @@ function rtc_init() {
 
         room.on('data', function (data) {
             var received = de(data.data);
-            appendHistory(received);
 
             console.log(received);
             if (received.indexOf('<p class="' + MODE_LOCATION + '">') > -1) {
-                console.log(received);
                 // ユーザー・緯度・経度を抽出
                 // 想定データ
                 // received = '<p class="' + mode + '"><i class="name">name</i> @ <span class="lat">lat</span> , <span class="long">lo</span></p>'
 
                 part1 = received.split('<i class="name">')[1]; // 'name</i> @ <span class="lat">lat</span> , <span class="long">lo</span></p>'
-                console.log(part1);
+                // console.log(part1);
                 part2 = part1.split('</span></p>')[0]; // 'name</i> @ <span class="lat">lat</span> , <span class="long">lo
-                console.log(part2);
+                // console.log(part2);
 
                 part3 = part2.split('</i> @ <span class="lat">');
                 name = part3[0]; // 'name'
-                console.log(name);
+                // console.log(name);
                 part4 = part3[1]; // 'lat</span> , <span class="long">lo'
-                console.log(part4);
+                // console.log(part4);
                 part5 = part4.split('</span> , <span class="long">');
-                console.log(part5);
+                // console.log(part5);
                 lat = part5[0]; // lat
-                console.log(lat);
+                // console.log(lat);
                 long = part5[1]; // long
-                console.log(long);
+                // console.log(long);
 
                 // ユーザーごとに最新の位置を得る
                 var userlocation = {
+                    'name': name,
                     'lat': lat,
                     'long': long
                 };
                 userlocationsArray[name] = userlocation;
 
                 // 経緯度を地図上にプロット
+                for (var key in markers) {
+                    map.removeLayer(markers[key]);
+                }
                 markers = [];
 
                 i = 0;
                 for (var key in userlocationsArray) {
                     var val = userlocationsArray[key];
-                    var mpoint = [val.lat, val.long];
+
+                    er = Math.random() / 10000;
+
+                    var mpoint = [String(Number(val.lat) + er), String(Number(val.long) + er)];
                     markers.push(
                         L.marker(mpoint, {
                             icon: L.divIcon({
                                 className: 'icon' + i,
                                 iconAnchor: [13, 13]
                             })
-                        }).addTo(map)
+                        }).bindTooltip(val.name).addTo(map)
                     );
 
                     i++;
                 }
+            } else {
+                appendHistory(received);
             }
         });
 
