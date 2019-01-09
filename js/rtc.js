@@ -21,11 +21,11 @@ function rtc_init() {
         enter.disabled = true;
         var name = document.getElementById('name');
         var roomName = document.getElementById('roomName');
-        room = peer.joinRoom(roomName.value, {
+        room = peer.joinRoom(sanitaize.encint(roomName.value), {
             mode: 'sfu'
         });
 
-        var entered = '<p><i class="name">' + name.value + '</i> entered ' + roomName.value + '.</p>';
+        var entered = '<p><i class="name">' + sanitaize.encode(name.value) + '</i> entered ' + sanitaize.encint(roomName.value) + '.</p>';
         appendHistory(entered);
         room.send(en(entered));
         isEntered = true;
@@ -34,7 +34,7 @@ function rtc_init() {
         send.addEventListener('click', function () {
             send.disabled = true;
             var msg = document.getElementById('msg');
-            var sent = '<p><i class="name">' + name.value + '</i> > <span class="message">' + msg.value +
+            var sent = '<p><i class="name">' + sanitaize.encode(name.value) + '</i> > <span class="message">' + sanitaize.encode(msg.value) +
                 '</span></p>';
             room.send(en(sent));
             appendHistory(sent);
@@ -109,11 +109,14 @@ function rtc_init() {
 }
 
 function sendLocation() {
-    var name = document.getElementById('name').value;
+    var name = document.getElementById('name');
     var la = document.getElementById("latitude").innerText;
     var lo = document.getElementById("longitude").innerText;
     if ((false == isNaN(la)) && (false == isNaN(lo))) {
-        var sent = '<p class="' + MODE_LOCATION + '"><i class="name">' + name + '</i> @ <span class="lat">' + la + '</span> , <span class="long">' + lo + '</span></p>';
+        var sent = '<p class="' + MODE_LOCATION + '"><i class="name">' +
+            sanitaize.encode(name.value) + '</i> @ <span class="lat">' +
+            sanitaize.encllnum(la) + '</span> , <span class="long">' +
+            sanitaize.encllnum(lo) + '</span></p>';
         if (null != room) {
             room.send(en(sent));
             // appendHistory(sent);
