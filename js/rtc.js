@@ -1,6 +1,8 @@
 isEntered = false;
 room = null;
 
+const MODE_LOCATION = 'location';
+
 function rtc_init() {
     const peer = new Peer({
         key: 'f9613972-35ff-4555-a212-ef68d10cdf71', // The API key of Skyway (domain: ya-androidapp.github.io)
@@ -39,6 +41,18 @@ function rtc_init() {
         room.on('data', function (data) {
             var received = de(data.data);
             appendHistory(received, '');
+
+            if (received.indexOf('<p class="' + MODE_LOCATION + '">') > -1) {
+                //TODO: ユーザー・緯度・経度を抽出
+                // 想定データ
+                // received = '<p class="' + mode + '"><i class="name">name</i> @ <span class="lat">lat</span> , <span class="long">lo</span></p>'
+
+                part1 = received.split('<i class="name">')[1];
+
+                //TODO: ユーザーごとに最新の位置を得る
+
+                //TODO: 経緯度を地図上にプロット
+            }
         });
 
         enter.disabled = false;
@@ -52,7 +66,7 @@ function sendLocation() {
         var sent = '<i class="name">' + name.value + '</i> @ <span class="lat">' + la + '</span> , <span class="long">' + lo + '</span>';
         if (null != room) {
             room.send(en(sent));
-            appendHistory(sent, 'location');
+            appendHistory(sent, MODE_LOCATION);
         }
     }
 }
