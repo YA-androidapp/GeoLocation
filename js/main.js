@@ -67,4 +67,25 @@ sanitaize = {
         return str.replace(/[^-0-9.]/g, '');
     }
 };
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
+
+function latlng_init() {
+    document.getElementById('latitude').addEventListener('click', function clickEvent(ev) {
+        move_to_current_place();
+    });
+    document.getElementById('longitude').addEventListener('click', function clickEvent(ev) {
+        move_to_current_place();
+    });
+}
+
+function move_to_current_place() {
+    var latitude = document.getElementById("latitude").innerText;
+    var longitude = document.getElementById("longitude").innerText;
+    if (map && (false == isNaN(latitude)) && (false == isNaN(longitude))) {
+        mpoint = [latitude, longitude];
+        map.setView(mpoint, 18);
+    }
+}
 >>>>>>> refs/remotes/origin/master
