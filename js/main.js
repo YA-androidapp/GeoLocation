@@ -13,28 +13,6 @@ function form_init() {
     roomName.value = random;
 
     var name = document.getElementById('name');
-<<<<<<< HEAD
-    name.value = random;
-}
-
-function latlng_init() {
-    document.getElementById('latitude').addEventListener('click', function clickEvent(ev) {
-        move_to_current_place();
-    });
-    document.getElementById('longitude').addEventListener('click', function clickEvent(ev) {
-        move_to_current_place();
-    });
-}
-
-function move_to_current_place() {
-    var latitude = document.getElementById("latitude").innerText;
-    var longitude = document.getElementById("longitude").innerText;
-    if (map && (false == isNaN(latitude)) && (false == isNaN(longitude))) {
-        mpoint = [latitude, longitude];
-        map.setView(mpoint, 18);
-    }
-}
-=======
     name.addEventListener('change', function () {
         if (('localStorage' in window) && (window.localStorage !== null)) {
             localStorage.setItem('name', document.getElementById('name').value);
@@ -67,9 +45,6 @@ sanitaize = {
         return str.replace(/[^-0-9.]/g, '');
     }
 };
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-=======
 
 function latlng_init() {
     document.getElementById('latitude').addEventListener('click', function clickEvent(ev) {
@@ -88,4 +63,3 @@ function move_to_current_place() {
         map.setView(mpoint, 18);
     }
 }
->>>>>>> refs/remotes/origin/master
