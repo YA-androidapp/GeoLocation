@@ -1,6 +1,6 @@
 #map {
-    width: 300px !important;
-    height: 300px !important;
+    min-width: 300px !important;
+    min-height: 300px !important;
 }
 
 .icon0 {

@@ -8,7 +8,7 @@ window.onload = function () {
 }
 
 function form_init() {
-    var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999
+    var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
     var roomName = document.getElementById('roomName');
     roomName.value = random;
 
@@ -23,8 +23,8 @@ function form_init() {
     if (loadedName && loadedName.length > 0) {
         name.value = sanitaize.encode(loadedName);
     } else {
-        var random = Math.floor(Math.random() * 100); // 0～99
-        name.value = random;
+        var random = Math.floor(Math.random() * 100); // 0～99を生成
+        name.value = 'User' + random;
     }
 }
 
