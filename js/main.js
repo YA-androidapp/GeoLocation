@@ -7,10 +7,21 @@ window.onload = function () {
     latlng_init();
 }
 
+function getUrlParameter(name) {
+    var regex = new RegExp('[\\?&]' + (name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')) + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? null : JSON.parse(decodeURIComponent( results[1].replace(/\+/g, ' ') ));
+}
+
 function form_init() {
-    var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
+    var roomNameValue = getUrlParameter("roomName");
     var roomName = document.getElementById('roomName');
-    roomName.value = random;
+    if(null != roomNameValue && false == isNaN(roomNameValue)){
+        roomName.value = roomNameValue;
+    } else {
+        var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
+        roomName.value = random;
+    }
 
     var name = document.getElementById('name');
     name.addEventListener('change', function () {
@@ -26,6 +37,13 @@ function form_init() {
         var random = Math.floor(Math.random() * 100); // 0～99を生成
         name.value = 'User' + random;
     }
+
+    var copyUrl = document.getElementById('copyUrl');
+    copyUrl.addEventListener('click', function () {
+        var copyTarget = document.getElementById("shareUrl");
+        copyTarget.select();
+        document.execCommand("Copy");
+    }, false);
 }
 
 sanitaize = {
