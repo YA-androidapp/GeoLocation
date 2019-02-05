@@ -21,6 +21,18 @@ function rtc_init() {
         enter.disabled = true;
         var name = document.getElementById('name');
         var roomName = document.getElementById('roomName');
+        var shareUrl = document.getElementById('shareUrl');
+
+        if(location.href.indexOf("roomName=")<0){
+            if(location.href.indexOf("?")>-1){
+                shareUrl.value = location.href+"&roomName="+sanitaize.encint(roomName.value);
+            } else {
+                shareUrl.value = location.href+"?roomName="+sanitaize.encint(roomName.value);
+            }
+        } else {
+            shareUrl.value = location.href;
+        }
+
         room = peer.joinRoom(sanitaize.encint(roomName.value), {
             mode: 'sfu'
         });
