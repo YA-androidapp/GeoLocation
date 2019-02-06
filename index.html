@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/map.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-  <title>Geo Location</title>
+  <title>GeoLocation</title>
 </head>
 
 <body>
@@ -29,7 +29,25 @@
     <div class="jumbotron">
       <h1>How to use</h1>
       <p class="lead">
-        ...
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            [1]リーダー（位置共有を開始する1人）
+            <ol class="list-group list-group-flush">
+              <li class="list-group-item">(1)ルーム名(Room ID)と自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
+              <li class="list-group-item">(2)すぐ下のテキストボックスにURLが表示されるので、位置を共有したい人に共有する</li>
+            </ol>
+          </li>
+          <li class="list-group-item">
+            [2]メンバー（招待される人）
+            <ol class="list-group list-group-flush">
+              <li class="list-group-item">(1)リーダーから受け取ったURLにアクセス</li>
+              <li class="list-group-item">(2)ルーム名は既定値のまま、自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
+            </ol>
+          </li>
+        </ul>
+        <small>
+          ※ブラウザのダイアログが表示されて位置情報取得を許可するか尋ねられた場合は、許可をクリックしてください。
+        </small>
       </p>
     </div>
     <div class="card-deck mb-1">
@@ -40,29 +58,29 @@
         <div class="card-body">
           <div>
             <div class="row">
-                <div class="col col-sm-2">
+                <div class="col col-sm-4">
                   Room ID
                 </div>
-                <div class="col col-sm-6">
-                  <input type="number" class="form-control" id="roomName" placeholder="Room name">
+                <div class="col col-sm-4">
+                  <input type="text" class="form-control" id="roomName" placeholder="Room name" pattern="^[0-9A-Za-z-]+$">
                 </div>
             </div>
             <div class="row">
-                <div class="col col-sm-2">
+                <div class="col col-sm-4">
                   Name
                 </div>
-                <div class="col col-sm-6">
-                  <input type="text" class="form-control" id="name" placeholder="My name">
+                <div class="col col-sm-4">
+                  <input type="text" class="form-control" id="name" placeholder="My name" pattern="^[0-9A-Za-z-]+$">
                 </div>
                 <div class="col col-sm-4">
                     <button type="button" class="btn btn-block btn-primary" id="enter">Enter room</button>
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col col-sm-2">
+                <div class="col col-sm-4">
                   Share
                 </div>
-                <div class="col col-sm-6">
+                <div class="col col-sm-4">
                   <input type="text" class="form-control" id="shareUrl" placeholder="URL" readonly>
                 </div>
                 <div class="col col-sm-4">
@@ -72,10 +90,10 @@
           </div>
           <div class="mt-3">
             <div class="row">
-                <div class="col col-sm-2">
+                <div class="col col-sm-4">
                   Message
                 </div>
-                <div class="col col-sm-6">
+                <div class="col col-sm-4">
                   <input type="text" class="form-control" id="msg" placeholder="Message">
                 </div>
                 <div class="col col-sm-4">

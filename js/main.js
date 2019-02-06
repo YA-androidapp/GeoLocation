@@ -16,8 +16,8 @@ function getUrlParameter(name) {
 function form_init() {
     var roomNameValue = getUrlParameter("roomName");
     var roomName = document.getElementById('roomName');
-    if(null != roomNameValue && false == isNaN(roomNameValue)){
-        roomName.value = roomNameValue;
+    if(null != roomNameValue && "" == roomNameValue){
+        roomName.value = sanitaize.encalphanum(roomNameValue);
     } else {
         var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
         roomName.value = random;
@@ -55,8 +55,8 @@ sanitaize = {
         return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'').replace(/&amp;/g, '&');
     },
 
-    encint: function (str) {
-        return str.replace(/[^0-9]/g, '');
+    encalphanum: function (str) {
+        return str.replace(/[^0-9a-zA-Z-]/g, '');
     },
 
     encllnum: function (str) {

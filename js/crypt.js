@@ -8,13 +8,13 @@ var Base64 = {
 };
 
 function en(plaintext) {
-    var passphrase = sanitaize.encint(document.getElementById('roomName').value);
+    var passphrase = sanitaize.encalphanum(document.getElementById('roomName').value);
     var utf8_plain = CryptoJS.enc.Utf8.parse(plaintext);
     return Base64.encode(CryptoJS.AES.encrypt(utf8_plain, passphrase));
 }
 
 function de(encryptedtext) {
-    var passphrase = sanitaize.encint(document.getElementById('roomName').value);
+    var passphrase = sanitaize.encalphanum(document.getElementById('roomName').value);
     try {
         return CryptoJS.AES.decrypt(Base64.decode(encryptedtext), passphrase).toString(
             CryptoJS.enc.Utf8);
