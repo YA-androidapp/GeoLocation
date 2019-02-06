@@ -25,22 +25,24 @@ function rtc_init() {
 
         if(location.href.indexOf("roomName=")<0){
             if(location.href.indexOf("?")>-1){
-                shareUrl.value = location.href+"&roomName="+sanitaize.encint(roomName.value);
+                shareUrl.value = location.href+"&roomName="+sanitaize.encalphanum(roomName.value);
             } else {
-                shareUrl.value = location.href+"?roomName="+sanitaize.encint(roomName.value);
+                shareUrl.value = location.href+"?roomName="+sanitaize.encalphanum(roomName.value);
             }
         } else {
             shareUrl.value = location.href;
         }
 
-        room = peer.joinRoom(sanitaize.encint(roomName.value), {
+        room = peer.joinRoom(sanitaize.encalphanum(roomName.value), {
             mode: 'sfu'
         });
 
-        var entered = '<p><i class="name">' + sanitaize.encode(name.value) + '</i> entered ' + sanitaize.encint(roomName.value) + '.</p>';
+        var entered = '<p><i class="name">' + sanitaize.encode(name.value) + '</i> entered ' + sanitaize.encalphanum(roomName.value) + '.</p>';
         appendHistory(entered);
         room.send(en(entered));
         isEntered = true;
+        name.disabled = true;
+        roomName.disabled = true;
 
         var send = document.getElementById('send');
         send.addEventListener('click', function () {
