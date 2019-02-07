@@ -10,16 +10,17 @@ window.onload = function () {
 function getUrlParameter(name) {
     var regex = new RegExp('[\\?&]' + (name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')) + '=([^&#]*)');
     var results = regex.exec(location.search);
-    return results === null ? null : JSON.parse(decodeURIComponent( results[1].replace(/\+/g, ' ') ));
+    return results === null ? null : JSON.parse(decodeURIComponent(results[1].replace(/\+/g, ' ')));
 }
 
 function form_init() {
     var roomNameValue = getUrlParameter("roomName");
     var roomName = document.getElementById('roomName');
-    if(null != roomNameValue && "" == roomNameValue){
+    if (null != roomNameValue && "" == roomNameValue) {
         roomName.value = sanitaize.encalphanum(roomNameValue);
     } else {
-        var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
+        // var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
+        var random = uuid();
         roomName.value = random;
     }
 
@@ -80,4 +81,18 @@ function move_to_current_place() {
         mpoint = [latitude, longitude];
         map.setView(mpoint, 18);
     }
+}
+
+function uuid() {
+    var uuid = "",
+        i, random;
+    for (i = 0; i < 32; i++) {
+        random = Math.random() * 16 | 0;
+
+        if (i == 8 || i == 12 || i == 16 || i == 20) {
+            uuid += "-"
+        }
+        uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+    }
+    return uuid;
 }
