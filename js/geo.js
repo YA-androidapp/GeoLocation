@@ -36,3 +36,47 @@ function geoFindMe() {
     var watchID = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
     // navigator.geolocation.clearWatch(watchID);
 }
+
+var revGeocode = document.getElementById('revGeocode');
+revGeocode.addEventListener('click', function () {
+    var lat = document.getElementById("latitude").innerText,
+    long = document.getElementById("longitude").innerText;
+    reverseGeocode(lat, long);
+}, false);
+
+function reverseGeocode(lat, long){
+    if ((false == isNaN(lat)) && (false == isNaN(long))) {
+        var address = "";
+
+        var script = document.createElement('script');
+        script.src = 'https://www.finds.jp/ws/rgeocode.php?jsonp=caller&lat=' + lat + '&lon=' + long;
+        window.caller = function (response) {
+            if (response != null) {
+                if (response.result != null) {
+                    if (response.result.prefecture != null) {
+                        if (response.result.prefecture.pname != null) {
+                            address += response.result.prefecture.pname;
+                        }
+                    }
+                    if (response.result.municipality != null) {
+                        if (response.result.municipality.mname != null) {
+                            address += response.result.municipality.mname;
+                        }
+                    }
+                    if (response.result.local != null) {
+                        if (response.result.local[0] != null) {
+                            if (response.result.local[0].section != null) {
+                                address += response.result.local[0].section;
+                            } else if (response.result.local.section != null) {
+                                address += response.result.local.section;
+                            }
+                        }
+                    }
+                }
+            }
+
+            document.getElementById("address").value = address;
+        };
+        document.body.appendChild(script);
+    }
+}
