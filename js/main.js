@@ -8,15 +8,18 @@ window.onload = function () {
 }
 
 function getUrlParameter(name) {
-    var regex = new RegExp('[\\?&]' + (name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')) + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? null : JSON.parse(decodeURIComponent(results[1].replace(/\+/g, ' ')));
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(location.search);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 function form_init() {
     var roomNameValue = getUrlParameter("roomName");
     var roomName = document.getElementById('roomName');
-    if (null != roomNameValue && "" == roomNameValue) {
+    if (null != roomNameValue && "" != roomNameValue) {
         roomName.value = sanitaize.encalphanum(roomNameValue);
     } else {
         // var random = 1000 + Math.floor(Math.random() * 1000); // 1000～1999を生成
@@ -42,6 +45,13 @@ function form_init() {
     var copyUrl = document.getElementById('copyUrl');
     copyUrl.addEventListener('click', function () {
         var copyTarget = document.getElementById("shareUrl");
+        copyTarget.select();
+        document.execCommand("Copy");
+    }, false);
+
+    var copyAddress = document.getElementById('copyAddress');
+    copyAddress.addEventListener('click', function () {
+        var copyTarget = document.getElementById("address");
         copyTarget.select();
         document.execCommand("Copy");
     }, false);
