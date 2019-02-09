@@ -26,29 +26,33 @@
   </nav>
 
   <main role="main" class="container">
-    <div class="jumbotron">
-      <h1>How to use</h1>
-      <p class="lead">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            [1]リーダー（位置共有を開始する1人）
-            <ol class="list-group list-group-flush">
-              <li class="list-group-item">(1)ルーム名(Room ID)と自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
-              <li class="list-group-item">(2)すぐ下のテキストボックスにURLが表示されるので、位置を共有したい人に共有する</li>
-            </ol>
-          </li>
-          <li class="list-group-item">
-            [2]メンバー（招待される人）
-            <ol class="list-group list-group-flush">
-              <li class="list-group-item">(1)リーダーから受け取ったURLにアクセス</li>
-              <li class="list-group-item">(2)ルーム名は既定値のまま、自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
-            </ol>
-          </li>
-        </ul>
-        <small>
-          ※ブラウザのダイアログが表示されて位置情報取得を許可するか尋ねられた場合は、許可をクリックしてください。
-        </small>
-      </p>
+    <div class="m-4">
+      <button type="button" class="btn btn-light btn-lg btn-block" data-toggle="collapse" data-target="#collapseBox" aria-expanded="false" aria-controls="collapseBox">
+        How to use
+      </button>
+      <div class="jumbotron mb-4 collapse" id="collapseBox">
+        <p class="lead">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              [1]リーダー（位置共有を開始する1人）
+              <ol class="list-group list-group-flush">
+                <li class="list-group-item">(1)ルーム名(Room ID)と自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
+                <li class="list-group-item">(2)すぐ下のテキストボックスにURLが表示されるので、位置を共有したい人に共有する</li>
+              </ol>
+            </li>
+            <li class="list-group-item">
+              [2]メンバー（招待される人）
+              <ol class="list-group list-group-flush">
+                <li class="list-group-item">(1)リーダーから受け取ったURLにアクセス</li>
+                <li class="list-group-item">(2)ルーム名は既定値のまま、自分のユーザー名(Name)を必要に応じて変更し、「Enter room」をクリック</li>
+              </ol>
+            </li>
+          </ul>
+          <small>
+            ※ブラウザのダイアログが表示されて位置情報取得を許可するか尋ねられた場合は、許可をクリックしてください。
+          </small>
+        </p>
+      </div>
     </div>
     <div class="card-deck mb-1">
       <div class="card mb-1 shadow-sm">
@@ -128,6 +132,7 @@
     </div>
   </main>
 
+  <script type="text/javascript" src="js/bs.js"></script>
   <script type="text/javascript" src="js/crypt.js"></script>
   <script type="text/javascript" src="js/crypto-js.js"></script>
   <script type="text/javascript" src="js/geo.js"></script>
