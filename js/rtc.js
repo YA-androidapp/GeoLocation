@@ -142,7 +142,25 @@ function appendHistory(msg) {
     history.insertAdjacentHTML('afterbegin', msg);
 }
 
-var geo = document.getElementById('geo');
-geo.addEventListener('click', function () {
-    sendLocation();
+function moveAndSend(position) {
+    var latitude = document.getElementById("latitude").innerText;
+    var longitude = document.getElementById("longitude").innerText;
+    if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
+        if (map) {
+            mpoint = [latitude, longitude];
+            map.setView(mpoint, 18);
+        }
+
+        sendLocation();
+    }
+}
+
+var latitude = document.getElementById('latitude');
+latitude.addEventListener('click', function () {
+    moveAndSend();
+});
+
+var longitude = document.getElementById('longitude');
+longitude.addEventListener('click', function () {
+    moveAndSend();
 });
