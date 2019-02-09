@@ -12,7 +12,7 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="#">GeoLocation</a>
+    <a class="navbar-brand" href="https://ya-androidapp.github.io/GeoLocation/">GeoLocation</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -115,7 +115,19 @@
           <div class="card-title" id="geo">
             <span id="latitude"></span> , <span id="longitude"></span>
           </div>
-          <div id="out"></div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-sm-5">
+                <button type="button" class="btn btn-outline-info" id="revGeocode">Reverse Geocode</button>
+              </div>
+              <div class="col col-sm-5">
+                <input type="text" class="form-control" id="address" placeholder="Address" readonly>
+              </div>
+              <div class="col col-sm-2">
+                <button class="btn btn-outline-secondary" id="copyAddress">Copy</button>
+              </div>
+            </div>
+          </div>
           <div id="map"></div>
         </div>
       </div>

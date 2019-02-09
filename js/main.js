@@ -45,6 +45,13 @@ function form_init() {
         copyTarget.select();
         document.execCommand("Copy");
     }, false);
+
+    var copyAddress = document.getElementById('copyAddress');
+    copyAddress.addEventListener('click', function () {
+        var copyTarget = document.getElementById("address");
+        copyTarget.select();
+        document.execCommand("Copy");
+    }, false);
 }
 
 sanitaize = {
