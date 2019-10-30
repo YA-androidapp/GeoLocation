@@ -48,10 +48,17 @@ function form_init() {
 
     var shareWith = document.getElementById('shareWith');
     shareWith.addEventListener('change', function () {
+        var param_name = 'name';
+
         var shareUrlValue = document.getElementById("shareUrl").value;
-        if((shareUrlValue.indexOf('?name=') > -1) || (shareUrlValue.indexOf('&name=') > -1)){
-            var shareWithValue = document.getElementById('shareWith').value;
-            document.getElementById("shareUrl").value = shareUrlValue.replace(/([?&]name=).*?(&|$)/,'$1' + shareWithValue + '$2');
+        if (null != shareUrlValue && "" != shareUrlValue) {
+            if ((shareUrlValue.indexOf('?' + param_name + '=') > -1) || (shareUrlValue.indexOf('&' + param_name + '=') > -1)) {
+                var shareWithValue = document.getElementById('shareWith').value;
+                document.getElementById("shareUrl").value = shareUrlValue.replace(/([?&]name=).*?(&|$)/, '$1' + shareWithValue + '$2');
+            } else {
+                var shareWithValue = document.getElementById('shareWith').value;
+                document.getElementById("shareUrl").value = shareUrlValue + (shareUrlValue.indexOf('?') > -1 ? '&' : '?') + param_name + '=' + shareWithValue;
+            }
         }
     }, false);
 
