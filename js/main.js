@@ -46,6 +46,15 @@ function form_init() {
         name.value = 'User' + random;
     }
 
+    var shareWith = document.getElementById('shareWith');
+    shareWith.addEventListener('change', function () {
+        var shareUrlValue = document.getElementById("shareUrl").value;
+        if((shareUrlValue.indexOf('?name=') > -1) || (shareUrlValue.indexOf('&name=') > -1)){
+            var shareWithValue = document.getElementById('shareWith').value;
+            document.getElementById("shareUrl").value = shareUrlValue.replace(/([?&]name=).*?(&|$)/,'$1' + shareWithValue + '$2');
+        }
+    }, false);
+
     var copyUrl = document.getElementById('copyUrl');
     copyUrl.addEventListener('click', function () {
         var copyTarget = document.getElementById("shareUrl");
