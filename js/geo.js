@@ -6,18 +6,9 @@ function geoFindMe() {
     }
 
     function geo_success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        document.getElementById("latitude").innerText = latitude;
-        document.getElementById("longitude").innerText = longitude;
-        if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
-            if (map) {
-                mpoint = [latitude, longitude];
-                map.setView(mpoint, 18);
-            }
-
-            sendLocation();
-        }
+        document.getElementById("latitude").innerText = position.coords.latitude;
+        document.getElementById("longitude").innerText = position.coords.longitude;
+        moveAndSend();
     }
 
     function geo_error(error) {

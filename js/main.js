@@ -104,20 +104,11 @@ sanitaize = {
 
 function latlng_init() {
     document.getElementById('latitude').addEventListener('click', function clickEvent(ev) {
-        move_to_current_place();
+        moveAndSend();
     });
     document.getElementById('longitude').addEventListener('click', function clickEvent(ev) {
-        move_to_current_place();
+        moveAndSend();
     });
-}
-
-function move_to_current_place() {
-    var latitude = document.getElementById("latitude").innerText;
-    var longitude = document.getElementById("longitude").innerText;
-    if (map && (false == isNaN(latitude)) && (false == isNaN(longitude))) {
-        mpoint = [latitude, longitude];
-        map.setView(mpoint, 18);
-    }
 }
 
 function uuid() {
