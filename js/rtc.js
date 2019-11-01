@@ -44,6 +44,13 @@ function rtc_init() {
         name.disabled = true;
         roomName.disabled = true;
 
+        var lat = document.getElementById("latitude").innerText,
+        long = document.getElementById("longitude").innerText;
+        if (null != lat && "" != lat && null != long && "" != long) {
+            console.log('entered '+lat + ',' + long);
+            sendLocation();
+        }
+
         var send = document.getElementById('send');
         send.addEventListener('click', function () {
             send.disabled = true;
@@ -58,7 +65,8 @@ function rtc_init() {
         room.on('data', function (data) {
             var received = de(data.data);
 
-            // console.log(received);
+            console.log('data');
+            console.log(received);
             if (received.indexOf('<p class="' + MODE_LOCATION + '">') > -1) {
                 // ユーザー・緯度・経度を抽出
                 // 想定データ
@@ -113,6 +121,9 @@ function rtc_init() {
 
                     i++;
                 }
+
+                var locationReceived = '<p><i class="name">' + sanitaize.encode(name) + '</i> <span onclick="move(' + latitude.innerText + ',' + longitude.innerText + ')">location</span></p>';
+                appendHistory(locationReceived);
             } else {
                 appendHistory(received);
             }
@@ -133,6 +144,7 @@ function sendLocation() {
             sanitaize.encllnum(lo) + '</span></p>';
         if (null != room) {
             room.send(en(sent));
+            appendHistory(sent);
         }
     }
 }
@@ -142,15 +154,23 @@ function appendHistory(msg) {
     history.insertAdjacentHTML('afterbegin', msg);
 }
 
-function moveAndSend(position) {
+function move(latitude, longitude) {
+    if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
+        if (map) {
+            var currentZoom = map.getZoom();
+            var newZoom = currentZoom ? currentZoom : 18;
+
+            mpoint = [latitude, longitude];
+            map.setView(mpoint, newZoom);
+        }
+    }
+}
+
+function moveAndSend() {
     var latitude = document.getElementById("latitude").innerText;
     var longitude = document.getElementById("longitude").innerText;
     if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
-        if (map) {
-            mpoint = [latitude, longitude];
-            map.setView(mpoint, 18);
-        }
-
+        move(latitude, longitude);
         sendLocation();
     }
 }
