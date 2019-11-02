@@ -23,11 +23,11 @@ function rtc_init() {
         var roomName = document.getElementById('roomName');
         var shareUrl = document.getElementById('shareUrl');
 
-        if(location.href.indexOf("roomName=")<0){
-            if(location.href.indexOf("?")>-1){
-                shareUrl.value = location.href+"&roomName="+sanitaize.encalphanum(roomName.value);
+        if (location.href.indexOf("roomName=") < 0) {
+            if (location.href.indexOf("?") > -1) {
+                shareUrl.value = location.href + "&roomName=" + sanitaize.encalphanum(roomName.value);
             } else {
-                shareUrl.value = location.href+"?roomName="+sanitaize.encalphanum(roomName.value);
+                shareUrl.value = location.href + "?roomName=" + sanitaize.encalphanum(roomName.value);
             }
         } else {
             shareUrl.value = location.href;
@@ -45,9 +45,9 @@ function rtc_init() {
         roomName.disabled = true;
 
         var lat = document.getElementById("latitude").innerText,
-        long = document.getElementById("longitude").innerText;
+            long = document.getElementById("longitude").innerText;
         if (null != lat && "" != lat && null != long && "" != long) {
-            console.log('entered '+lat + ',' + long);
+            console.log('entered ' + lat + ',' + long);
             sendLocation();
         }
 
@@ -122,7 +122,10 @@ function rtc_init() {
                     i++;
                 }
 
-                var locationReceived = '<p><i class="name">' + sanitaize.encode(name) + '</i> <span onclick="move(' + latitude.innerText + ',' + longitude.innerText + ')">location</span></p>';
+                var locationReceived = '<p><i class="name">' + sanitaize.encode(name) +
+                    '</i> <span onclick="move(' + lat + ',' + long + ')"> <span class="lat">' +
+                    sanitaize.encllnum(lat) + '</span> , <span class="long">' +
+                    sanitaize.encllnum(long) + '</span></span></p>';
                 appendHistory(locationReceived);
             } else {
                 appendHistory(received);
