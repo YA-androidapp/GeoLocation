@@ -103,6 +103,8 @@ function rtc_init() {
                 }
                 markers = [];
 
+                var userListText = '<ul>\n';
+
                 i = 0;
                 for (var key in userlocationsArray) {
                     var val = userlocationsArray[key];
@@ -119,14 +121,17 @@ function rtc_init() {
                         }).bindTooltip(val.name).addTo(map)
                     );
 
+                    userListText += '\n' +
+                        '<li><i class="name">' + sanitaize.encode(name) +
+                        '</i> <span onclick="move(' + lat + ',' + long + ')"> <span class="lat">' +
+                        sanitaize.encllnum(Number(lat).toFixed(4)) + '</span> , <span class="long">' +
+                        sanitaize.encllnum(Number(long).toFixed(4)) + '</span></span></li>';
+
                     i++;
                 }
 
-                var locationReceived = '<p><i class="name">' + sanitaize.encode(name) +
-                    '</i> <span onclick="move(' + lat + ',' + long + ')"> <span class="lat">' +
-                    sanitaize.encllnum(lat) + '</span> , <span class="long">' +
-                    sanitaize.encllnum(long) + '</span></span></p>';
-                appendHistory(locationReceived);
+                userListText += '</ul>\n';
+                UpdateUserList(userListText);
             } else {
                 appendHistory(received);
             }
@@ -155,6 +160,11 @@ function sendLocation() {
 function appendHistory(msg) {
     var history = document.getElementById('history');
     history.insertAdjacentHTML('afterbegin', msg);
+}
+
+function UpdateUserList(msg) {
+    var userList = document.getElementById('userList');
+    userList.innerHTML = msg;
 }
 
 function move(latitude, longitude) {
