@@ -31,11 +31,11 @@ function geoFindMe() {
 var revGeocode = document.getElementById('revGeocode');
 revGeocode.addEventListener('click', function () {
     var lat = document.getElementById("latitude").innerText,
-    long = document.getElementById("longitude").innerText;
+        long = document.getElementById("longitude").innerText;
     reverseGeocode(lat, long);
 }, false);
 
-function reverseGeocode(lat, long){
+function reverseGeocode(lat, long) {
     if ((false == isNaN(lat)) && (false == isNaN(long))) {
         var address = "";
 

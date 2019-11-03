@@ -104,6 +104,8 @@ function rtc_init() {
                 markers = [];
 
                 var userListText = '<ul>\n';
+                var myLat = Number(document.getElementById("latitude").innerText),
+                    myLong = Number(document.getElementById("longitude").innerText);
 
                 i = 0;
                 for (var key in userlocationsArray) {
@@ -125,7 +127,8 @@ function rtc_init() {
                         '<li><i class="name">' + sanitaize.encode(name) +
                         '</i> <span onclick="move(' + lat + ',' + long + ')"> <span class="lat">' +
                         sanitaize.encllnum(Number(lat).toFixed(4)) + '</span> , <span class="long">' +
-                        sanitaize.encllnum(Number(long).toFixed(4)) + '</span></span></li>';
+                        sanitaize.encllnum(Number(long).toFixed(4)) + '</span></span> ( <span class="dist">' +
+                        calcDistance(Number(lat), Number(long), Number(myLat), Number(myLong)) + '</span> )</li>';
 
                     i++;
                 }
@@ -171,7 +174,7 @@ function move(latitude, longitude) {
     if ((false == isNaN(latitude)) && (false == isNaN(longitude))) {
         if (map) {
             var currentZoom = map.getZoom();
-            var newZoom = currentZoom ? currentZoom : 18;
+            var newZoom = currentZoom ? currentZoom : 14;
 
             mpoint = [latitude, longitude];
             map.setView(mpoint, newZoom);
@@ -197,3 +200,28 @@ var longitude = document.getElementById('longitude');
 longitude.addEventListener('click', function () {
     moveAndSend();
 });
+
+function isNumber(x) {
+    if (typeof (x) != 'number' && typeof (x) != 'string')
+        return false;
+    else
+        return (x == parseFloat(x) && isFinite(x));
+}
+
+function calcDistance(lat1, long1, lat2, long2) {
+    if (!isNumber(lat1) || !isNumber(long1) || !isNumber(lat2) || !isNumber(long2)) {
+        return null;
+    }
+
+    lat1 *= Math.PI / 180;
+    long1 *= Math.PI / 180;
+    lat2 *= Math.PI / 180;
+    long2 *= Math.PI / 180;
+
+    var km = 6371 * Math.acos(Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1) + Math.sin(lat1) * Math.sin(lat2));
+    if (km >= 1) {
+        return Number(km).toFixed(3) + 'km';
+    } else {
+        return Number(1000 * km).toFixed(2) + 'm';
+    }
+}
